@@ -41,4 +41,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: acode-paid-release-apk
-        path: platforms/android/app/build/outputs/apk/release/*.apk
+        path: platforms/android/app/build/outputs/apk/debug/*.apk
