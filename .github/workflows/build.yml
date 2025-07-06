@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'yarn'
+        cache: 'npm'
     
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -32,10 +32,10 @@ jobs:
       run: npm install -g cordova@12.0.0
     
     - name: Install dependencies and setup
-      run: yarn setup
+      run: npm run setup
     
     - name: Build application (paid version, production)
-      run: yarn build android paid p
+      run: npm run build android paid p
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
