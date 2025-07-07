@@ -44,7 +44,7 @@ jobs:
         
         # release-signing.propertiesファイルを作成
         cat > platforms/android/release-signing.properties << EOF
-        storeFile=../../../android-signing-key.jks
+        storeFile=/home/runner/work/Acode/Acode/android-signing-key.jks
         storeType=jks
         keyAlias=${{ secrets.KEY_ALIAS }}
         storePassword=${{ secrets.KEYSTORE_PASSWORD }}
