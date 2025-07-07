@@ -1,21 +1,14 @@
 #! /bin/bash
 
-app="$1"
-mode="$2"
-fdroidFlag="$3"
+platform="$1"
+app="$2"
+mode="$3"
 webpackmode="development"
 cordovamode=""
 
-root=$(npm prefix)
-
-
-if [[ "$fdroidFlag" == "fdroid" ]]; then
-  echo "true" > "$root/fdroid.bool"
-  cordova plugin remove com.foxdebug.acode.rk.exec.proot
- 
-else
-  echo "false" > "$root/fdroid.bool"
-  cordova plugin add src/plugins/proot/
+if [ -z "$platform" ]
+then
+platform="android"
 fi
 
 if [ -z "$mode" ]
@@ -40,7 +33,7 @@ NC=''
 script1="node ./utils/config.js $mode $app"
 script2="webpack --progress --mode $webpackmode "
 script3="node ./utils/loadStyles.js"
-script4="cordova build android $cordovamode"
+script4="cordova build $platform $cordovamode"
 eval "
 echo \"${RED}$script1${NC}\";
 $script1;
