@@ -37,6 +37,7 @@ jobs:
     - name: Setup Android signing
       run: |
         echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > android-signing-key.jks
+        mkdir -p platforms/android
         echo "storeFile=../../../android-signing-key.jks" >> platforms/android/release-signing.properties
         echo "storeType=jks" >> platforms/android/release-signing.properties
         echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> platforms/android/release-signing.properties
@@ -50,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: acode-paid-release-apk
-        path: platforms/android/app/build/outputs/apk/debug/*.apk
+        path: platforms/android/app/build/outputs/apk/release/*.apk
