@@ -32,7 +32,7 @@ if [ "$mode" = "p" ] || [ "$mode" = "prod" ]
 then
 mode="p"
 webpackmode="production"
-cordovamode="--release"
+cordovamode="--release --packageType=apk"
 fi
 
 RED=''
