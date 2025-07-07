@@ -36,13 +36,25 @@ jobs:
 
     - name: Setup Android signing
       run: |
+        # キーストアファイルをプロジェクトルートに作成
         echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > android-signing-key.jks
+        
+        # platforms/androidディレクトリが存在することを確認
         mkdir -p platforms/android
-        echo "storeFile=../../../android-signing-key.jks" >> platforms/android/release-signing.properties
-        echo "storeType=jks" >> platforms/android/release-signing.properties
-        echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> platforms/android/release-signing.properties
-        echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> platforms/android/release-signing.properties
-        echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> platforms/android/release-signing.properties 
+        
+        # release-signing.propertiesファイルを作成
+        cat > platforms/android/release-signing.properties << EOF
+        storeFile=../../../android-signing-key.jks
+        storeType=jks
+        keyAlias=${{ secrets.KEY_ALIAS }}
+        storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+        keyPassword=${{ secrets.KEY_PASSWORD }}
+        EOF
+        
+        # ファイルの存在を確認（デバッグ用）
+        ls -la android-signing-key.jks
+        ls -la platforms/android/release-signing.properties
+        cat platforms/android/release-signing.properties
     
     - name: Build application (paid version, production)
       run: npm run build android paid p
