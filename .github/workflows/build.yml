@@ -52,6 +52,20 @@ jobs:
         ls -la android-signing-key.jks
         ls -la platforms/android/release-signing.properties
         cat platforms/android/release-signing.properties
+        
+    - name: Create build.json
+      run: |
+        echo '{
+          "android": {
+            "release": {
+              "keystore": "android-signing-key.jks", 
+              "storePassword": "${{ secrets.KEYSTORE_PASSWORD }}",
+              "alias": "${{ secrets.KEY_ALIAS }}",
+              "password": "${{ secrets.KEY_PASSWORD }}"
+            }
+          }
+        }' > build.json
+   
     
     - name: Build application (paid version, production)
       run: npm run build paid p
